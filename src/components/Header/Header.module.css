@@ -1,0 +1,26 @@
+.header {
+  background-color: #f2f4f7;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  height: 68px;
+  justify-content: space-between;
+  padding: 0 120px;
+}
+
+.list {
+  display: flex;
+  gap: 32px;
+}
+
+.item {
+  font-weight: 500;
+  color: rgba(16, 24, 40, 1);
+  transition: all 0.4s ease;
+}
+
+.isActive {
+  color: #0b44cd;
+}
