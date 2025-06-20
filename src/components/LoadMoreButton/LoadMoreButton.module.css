@@ -1,0 +1,21 @@
+.button {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.25;
+  color: #101828;
+  background-color: transparent;
+  width: 156px;
+  height: 44px;
+  border: 1px solid #3470ff;
+  border-radius: 12px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 80px auto 124px;
+  transition: border-color 250ms linear;
+  &:hover,
+  :focus {
+    border-color: #0b44cd;
+  }
+}
