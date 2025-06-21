@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { fetchCars } from '../../redux/cars/operations.js';
 import {
   selectCars,
@@ -10,8 +10,10 @@ import {
 
 import CarCard from '../../components/CarCard/CarCard.jsx';
 import LoadMoreButton from '../../components/LoadMoreButton/LoadMoreButton.jsx';
+import FilterPanel from '../../components/FilterPanel/FilterPanel';
 
 import s from './CatalogPage.module.css';
+import { resetCars } from '../../redux/cars/slice.js';
 
 const CatalogPage = () => {
   const dispatch = useDispatch();
@@ -20,7 +22,13 @@ const CatalogPage = () => {
   const page = useSelector(selectPage);
   const totalPages = useSelector(selectTotalPages);
 
+  const didFetch = useRef(false);
+
   useEffect(() => {
+    if (didFetch.current) return;
+    didFetch.current = true;
+
+    dispatch(resetCars());
     dispatch(fetchCars({ page: 1 }));
   }, [dispatch]);
 
@@ -28,8 +36,11 @@ const CatalogPage = () => {
     dispatch(fetchCars({ page: page + 1 }));
   };
 
+  console.log('page:', page, 'totalPages:', totalPages);
+
   return (
-    <div className="container">
+    <div className="container-in">
+      <FilterPanel />
       <ul className={s.grid}>
         {cars.map(car => (
           <li key={car.id} className={s.item}>
@@ -38,8 +49,8 @@ const CatalogPage = () => {
         ))}
       </ul>
 
-      {!isLoading && page < totalPages && (
-        <LoadMoreButton onClick={handleLoadMore} />
+      {page < totalPages && (
+        <LoadMoreButton onClick={handleLoadMore} disabled={isLoading} />
       )}
     </div>
   );

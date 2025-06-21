@@ -1,0 +1,27 @@
+.form {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 56px;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  gap: 4px;
+}
+
+.button {
+  padding: 10px 16px;
+  background-color: #3470ff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: auto;
+}
+
+.button:hover {
+  background-color: #255de7;
+}

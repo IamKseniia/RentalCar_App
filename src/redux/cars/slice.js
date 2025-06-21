@@ -17,6 +17,8 @@ const carsSlice = createSlice({
       state.items = [];
       state.page = 1;
       state.totalPages = 1;
+      state.error = null;
+      state.isLoading = false;
     },
   },
   extraReducers: builder => {
@@ -26,8 +28,16 @@ const carsSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchCars.fulfilled, (state, action) => {
-        state.items.push(...action.payload.cars);
-        state.page = action.payload.page;
+        const requestedPage = action.meta.arg.page;
+
+        const newCars = action.payload.cars;
+
+        const existingIds = new Set(state.items.map(car => car.id));
+
+        const filteredNew = newCars.filter(car => !existingIds.has(car.id));
+
+        state.items.push(...filteredNew);
+        state.page = requestedPage;
         state.totalPages = action.payload.totalPages;
         state.isLoading = false;
       })
