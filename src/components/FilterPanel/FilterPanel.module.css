@@ -2,26 +2,102 @@
   display: flex;
   gap: 16px;
   flex-wrap: wrap;
+  justify-content: center;
   margin-bottom: 56px;
+}
+
+.list {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+  flex-wrap: wrap;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .label {
   display: flex;
   flex-direction: column;
-  font-size: 14px;
-  gap: 4px;
+  gap: 8px;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.33;
+  color: #8d929a;
 }
 
 .button {
-  padding: 10px 16px;
   background-color: #3470ff;
   color: white;
   border: none;
-  border-radius: 8px;
-  cursor: pointer;
   margin-top: auto;
+  border-radius: 12px;
+  padding: 12px 51px;
+  width: 156px;
+  height: 44px;
 }
 
 .button:hover {
   background-color: #255de7;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.33;
+  color: #8d929a;
+  padding-bottom: 8px;
+}
+
+.fieldInput {
+  display: flex;
+  gap: 0;
+}
+
+.fieldInputFrom {
+  border-right: 1px solid #dadde1;
+  border-radius: 12px 0 0 12px;
+  width: 160px;
+  height: 44px;
+  background-color: #f7f7f7;
+  display: flex;
+  align-items: center;
+  gap: 1px;
+}
+
+.fieldInputTo {
+  border-radius: 0 12px 12px 0;
+  width: 160px;
+  height: 44px;
+  background-color: #f7f7f7;
+  display: flex;
+  align-items: center;
+  gap: 1px;
+}
+
+.textFieldLabel {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+  color: #101828;
+  padding-left: 24px;
+  align-items: center;
+}
+
+.input {
+  border: none;
+  background-color: #f7f7f7;
+  max-width: 80px;
+  font-weight: 500;
+  outline: none;
+  box-shadow: none;
+}
+
+.input:-webkit-autofill,
+.input:-webkit-autofill:hover,
+.input:-webkit-autofill:focus {
+  box-shadow: 0 0 0px 1000px #f7f7f7 inset;
 }

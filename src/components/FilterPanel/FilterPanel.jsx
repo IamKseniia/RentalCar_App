@@ -5,6 +5,8 @@ import s from './FilterPanel.module.css';
 import { setFilters } from '../../redux/filters/slice';
 import { resetCars } from '../../redux/cars/slice';
 import { fetchCars } from '../../redux/cars/operations';
+import CustomBrandSelect from '../CustomSelect/CustomBrandSelect.jsx';
+import CustomPriceSelect from '../CustomSelect/CustomPriceSelect.jsx';
 
 const FilterPanel = () => {
   const dispatch = useDispatch();
@@ -52,68 +54,102 @@ const FilterPanel = () => {
     fetchInitialData();
   }, []);
 
+  const formatNumberWithComma = value => {
+    const cleaned = value.replace(/\D/g, '');
+    if (!cleaned) return '';
+    return cleaned.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  };
+
+  const parseNumber = value => value.replace(/,/g, '');
+
   const handleChange = e => {
     const { name, value } = e.target;
-    setForm(prev => ({ ...prev, [name]: value }));
+
+    // Дозволити тільки цифри та коми
+    const numericValue = value.replace(/[^\d]/g, '');
+
+    const formattedValue = formatNumberWithComma(numericValue);
+
+    setForm(prev => ({
+      ...prev,
+      [name]: formattedValue,
+    }));
   };
 
   const handleSubmit = e => {
     e.preventDefault();
-    dispatch(setFilters(form));
+
+    const cleanedForm = {
+      ...form,
+      minMileage: parseNumber(form.minMileage),
+      maxMileage: parseNumber(form.maxMileage),
+    };
+
+    dispatch(setFilters(cleanedForm));
     dispatch(resetCars());
-    dispatch(fetchCars({ page: 1, ...form }));
+    dispatch(fetchCars({ page: 1, ...cleanedForm }));
   };
 
   return (
     <form className={s.form} onSubmit={handleSubmit}>
-      <label className={s.label}>
-        Brand:
-        <select name="brand" value={form.brand} onChange={handleChange}>
-          <option value="">All</option>
-          {brands.map(brand => (
-            <option key={brand} value={brand}>
-              {brand}
-            </option>
-          ))}
-        </select>
-      </label>
-
-      <label className={s.label}>
-        Price ($/h):
-        <select name="price" value={form.price} onChange={handleChange}>
-          <option value="">All</option>
-          {priceOptions.map(price => (
-            <option key={price} value={price}>
-              {price}
-            </option>
-          ))}
-        </select>
-      </label>
-
-      <label className={s.label}>
-        Mileage from:
-        <input
-          type="number"
-          name="minMileage"
-          value={form.minMileage}
-          onChange={handleChange}
-          min="0"
-        />
-      </label>
-
-      <label className={s.label}>
-        Mileage to:
-        <input
-          type="number"
-          name="maxMileage"
-          value={form.maxMileage}
-          onChange={handleChange}
-          min={form.minMileage || 0}
-        />
-      </label>
-
+      <div className={s.list}>
+        <label className={s.label}>
+          Car brand
+          <CustomBrandSelect
+            value={form.brand}
+            onChange={value => setForm(prev => ({ ...prev, brand: value }))}
+            options={brands}
+            placeholder="Choose a brand"
+          />
+        </label>
+        <label className={s.label}>
+          Price/ 1 hour
+          <CustomPriceSelect
+            options={priceOptions}
+            value={form.price}
+            onChange={value =>
+              setForm(prev => ({
+                ...prev,
+                price: value,
+              }))
+            }
+            placeholder="Choose a price"
+          />
+        </label>
+        <div>
+          <p className={s.text}>Сar mileage / km</p>
+          <div className={s.fieldInput}>
+            <div className={s.fieldInputFrom}>
+              <label className={s.textFieldLabel} for="from">
+                From
+              </label>
+              <input
+                type="text"
+                id="from"
+                name="minMileage"
+                value={form.minMileage}
+                onChange={handleChange}
+                className={s.input}
+              />
+            </div>
+            <div className={s.fieldInputTo}>
+              <label className={s.textFieldLabel} for="to">
+                To
+              </label>
+              <input
+                type="text"
+                id="to"
+                name="maxMileage"
+                value={form.maxMileage}
+                onChange={handleChange}
+                className={s.input}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
       <button type="submit" className={s.button}>
-        Apply filters
+        Search
       </button>
     </form>
   );

@@ -57,3 +57,20 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
+/* Контейнер скролу */
+::-webkit-scrollbar {
+  width: 8px; /* ширина вертикального скролбару */
+}
+
+/* Трек (фон) */
+::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 12px;
+}
+
+/* Сам бігунок */
+::-webkit-scrollbar-thumb {
+  background-color: #dadde1;
+  border-radius: 10px;
+}
