@@ -90,6 +90,20 @@ const FilterPanel = () => {
     dispatch(fetchCars({ page: 1, ...cleanedForm }));
   };
 
+  const handleReset = () => {
+    const emptyForm = {
+      brand: '',
+      price: '',
+      minMileage: '',
+      maxMileage: '',
+    };
+
+    setForm(emptyForm);
+    dispatch(setFilters(emptyForm));
+    dispatch(resetCars());
+    dispatch(fetchCars({ page: 1 }));
+  };
+
   return (
     <form className={s.form} onSubmit={handleSubmit}>
       <div className={s.list}>
@@ -120,7 +134,7 @@ const FilterPanel = () => {
           <p className={s.text}>Сar mileage / km</p>
           <div className={s.fieldInput}>
             <div className={s.fieldInputFrom}>
-              <label className={s.textFieldLabel} for="from">
+              <label className={s.textFieldLabel} htmlFor="from">
                 From
               </label>
               <input
@@ -133,7 +147,7 @@ const FilterPanel = () => {
               />
             </div>
             <div className={s.fieldInputTo}>
-              <label className={s.textFieldLabel} for="to">
+              <label className={s.textFieldLabel} htmlFor="to">
                 To
               </label>
               <input
@@ -150,6 +164,9 @@ const FilterPanel = () => {
       </div>
       <button type="submit" className={s.button}>
         Search
+      </button>
+      <button type="button" className={s.button} onClick={handleReset}>
+        Reset
       </button>
     </form>
   );

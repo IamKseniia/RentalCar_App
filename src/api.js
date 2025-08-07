@@ -26,3 +26,8 @@ export const getCars = async ({
   const response = await axios.get('/cars', { params });
   return response.data;
 };
+
+export const getCarById = async id => {
+  const { data } = await axios.get(`/cars/${id}`);
+  return data;
+};

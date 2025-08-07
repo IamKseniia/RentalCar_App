@@ -1,0 +1,71 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1.33;
+  margin-bottom: 8px;
+}
+
+.id {
+  color: #8d929a;
+  margin-bottom: 8px;
+}
+
+.text {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+}
+
+.boxLocationMilage {
+  display: flex;
+  height: auto;
+  gap: 4px;
+  margin-bottom: 16px;
+}
+
+.locationMilage {
+  display: flex;
+  gap: 16px;
+}
+
+.price {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1.33;
+  color: #3470ff;
+  margin-bottom: 32px;
+}
+
+.description {
+  margin-bottom: 68px;
+}
+
+.boxDetails {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+}
+
+.littleTitle {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.icon {
+  margin-right: 8px;
+}

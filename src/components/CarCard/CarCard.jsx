@@ -1,5 +1,7 @@
 import s from './CarCard.module.css';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleFavorite } from '../../redux/favorites/slice';
 
 const CarCard = ({ car }) => {
   const {
@@ -15,6 +17,14 @@ const CarCard = ({ car }) => {
     address,
   } = car;
 
+  const dispatch = useDispatch();
+  const favorites = useSelector(state => state.favorites.items);
+  const isFavorite = favorites.includes(id);
+
+  const handleFavoriteClick = () => {
+    dispatch(toggleFavorite(id));
+  };
+
   const city = address.split(',')[1];
   const country = address.split(',')[2];
 
@@ -23,8 +33,25 @@ const CarCard = ({ car }) => {
     .replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
 
   return (
-    <div>
-      <img src={img} alt={`${brand} ${model}`} className={s.image} />
+    <div className={s.card}>
+      <div className={s.imageWrapper}>
+        <img src={img} alt={`${brand} ${model}`} className={s.image} />
+        <button onClick={handleFavoriteClick} className={s.favoriteBtn}>
+          {isFavorite ? (
+            <span>
+              <svg width="16" height="16">
+                <use href="/icons.svg#icon-heart-active"></use>
+              </svg>
+            </span>
+          ) : (
+            <span>
+              <svg width="16" height="16">
+                <use href="/icons.svg#icon-heart-default"></use>
+              </svg>
+            </span>
+          )}
+        </button>
+      </div>
       <div className={s.info}>
         <div className={s.top}>
           <h2 className={s.title}>
