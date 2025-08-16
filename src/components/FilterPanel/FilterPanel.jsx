@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
+import clsx from 'clsx';
 import s from './FilterPanel.module.css';
-import { setFilters } from '../../redux/filters/slice';
+import { setFilters, toggleFavoritesOnly } from '../../redux/filters/slice';
+import { selectFilters } from '../../redux/filters/selectors';
 import { resetCars } from '../../redux/cars/slice';
 import { fetchCars } from '../../redux/cars/operations';
 import CustomBrandSelect from '../CustomSelect/CustomBrandSelect.jsx';
@@ -10,16 +12,19 @@ import CustomPriceSelect from '../CustomSelect/CustomPriceSelect.jsx';
 
 const FilterPanel = () => {
   const dispatch = useDispatch();
+  const filters = useSelector(selectFilters);
 
   const [brands, setBrands] = useState([]);
   const [priceOptions, setPriceOptions] = useState([]);
 
-  const [form, setForm] = useState({
-    brand: '',
-    price: '',
-    minMileage: '',
-    maxMileage: '',
-  });
+  // const [form, setForm] = useState({
+  //   brand: '',
+  //   price: '',
+  //   minMileage: '',
+  //   maxMileage: '',
+  // });
+
+  const [form, setForm] = useState(filters);
 
   // Запит брендів і цін
   useEffect(() => {
@@ -104,6 +109,10 @@ const FilterPanel = () => {
     dispatch(fetchCars({ page: 1 }));
   };
 
+  const handleToggleFavoriteFilter = () => {
+    dispatch(toggleFavoritesOnly());
+  };
+
   return (
     <form className={s.form} onSubmit={handleSubmit}>
       <div className={s.list}>
@@ -167,6 +176,15 @@ const FilterPanel = () => {
       </button>
       <button type="button" className={s.button} onClick={handleReset}>
         Reset
+      </button>
+      <button
+        type="button"
+        className={clsx(s.button, s.favoriteButton)}
+        onClick={handleToggleFavoriteFilter}
+      >
+        <svg width="16" height="16">
+          <use href="/icons.svg#icon-heart-default"></use>
+        </svg>
       </button>
     </form>
   );

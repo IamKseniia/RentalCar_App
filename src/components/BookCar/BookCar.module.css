@@ -14,7 +14,7 @@
   font-size: 20px;
   line-height: 1.2;
   color: #101828;
-  margin-bottom: 20px;
+  margin-bottom: 8px;
 }
 
 .text {
@@ -42,12 +42,6 @@
   font-size: 16px;
   line-height: 1.25;
   color: #8d929a;
-}
-
-.input:hover:focus {
-  background-color: #f7f7f7;
-  color: #8d929a;
-  border: none;
 }
 
 .textarea {

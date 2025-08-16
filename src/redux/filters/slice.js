@@ -5,6 +5,7 @@ const initialState = {
   price: '',
   minMileage: '',
   maxMileage: '',
+  favoritesOnly: false,
 };
 
 const filtersSlice = createSlice({
@@ -14,11 +15,15 @@ const filtersSlice = createSlice({
     setFilters(state, action) {
       return { ...state, ...action.payload };
     },
+    toggleFavoritesOnly(state) {
+      state.favoritesOnly = !state.favoritesOnly;
+    },
     resetFilters() {
       return initialState;
     },
   },
 });
 
-export const { setFilters, resetFilters } = filtersSlice.actions;
+export const { setFilters, toggleFavoritesOnly, resetFilters } =
+  filtersSlice.actions;
 export const filtersReducer = filtersSlice.reducer;

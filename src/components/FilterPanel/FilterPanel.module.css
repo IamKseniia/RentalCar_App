@@ -42,6 +42,11 @@
   }
 }
 
+.favoriteButton {
+  width: 44px;
+  padding: 12px 12px;
+}
+
 .text {
   display: flex;
   flex-direction: column;
